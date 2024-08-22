@@ -2,6 +2,6 @@
 /shelf/
 /.idea
 /node_modules
+.env
 # Editor-based HTTP Client requests
 /httpRequests/
-.env
