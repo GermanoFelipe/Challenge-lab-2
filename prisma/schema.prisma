@@ -21,7 +21,7 @@ model User {
   updatedAt  DateTime @updatedAt
 
   emails     Email[]
-  stats      Stat[]  // Añade esta línea para la relación inversa
+  stats      Stat[]
 }
 
 model Email {
