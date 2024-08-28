@@ -14,5 +14,3 @@ export const getStatsForToday = async () => {
         include: { user: true },
     });
 };
-
-// Más funciones según sea necesario...
