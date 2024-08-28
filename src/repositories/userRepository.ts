@@ -1,19 +1,13 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import prisma from '../prisma/prismaClient';
+import { User } from '@prisma/client'
 
-export const createUser = async (data: any) => {
-    return prisma.user.create({ data });
-};
 
-export const findUserByUsername = async (username: string) => {
-    return prisma.user.findUnique({ where: { username } });
-};
+export class UserRepository {
+    async findByUserName (username: string): Promise<User | null> {
+        return prisma.user.findUnique( { where: { username } } )
+    }
 
-export class incrementEmailCount{} async (userId: number) => {
-    return prisma.user.update({
-        where: { id: userId },
-        data: {
-
-        }
-    });
+    async createUser (userData: { username: string, password: string, email: string }): Promise<User> {
+        return prisma.user.create({ data: userData })
+    }
 }

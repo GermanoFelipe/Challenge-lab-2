@@ -1,8 +1,25 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import prisma from '../prisma/prismaClient';
+import { Email } from '@prisma/client';
 
-export const logEmail = async (data: any) => {
-    return prisma.email.create({ data });
-};
+export class EmailRepository {
+    async createEmail (emailData: {recipient: string,
+        subject: string,
+        body: string,
+        userId: number}) : Promise<Email> {
 
-// Más funciones según sea necesario...
+        return prisma.email.create({ data: emailData })
+    }
+
+    async countEmailsSentToday (userId: number): Promise<number> {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return prisma.email.count ({
+            where : {
+                userId,
+                sentAt: {
+                    gte: today
+                }
+            }
+        })
+    }
+}
